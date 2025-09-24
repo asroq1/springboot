@@ -5,13 +5,11 @@ import lombok.RequiredArgsConstructor;
 import me.hyunjung.domain.Article;
 import me.hyunjung.dto.AddArticleRequest;
 import me.hyunjung.dto.ArticleResponse;
+import me.hyunjung.dto.UpdateArticleRequest;
 import me.hyunjung.service.BlogService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RequiredArgsConstructor
 @RestController
@@ -24,7 +22,7 @@ public class BlogApiController {
     return ResponseEntity.status(HttpStatus.CREATED).body(saveArticle);
   }
 
-  @GetMapping("api/articles")
+  @GetMapping("/api/articles")
   public ResponseEntity<List<ArticleResponse>> findAllArticles(){
     List<ArticleResponse> articles = blogService.findAll()
     .stream()
@@ -34,4 +32,22 @@ public class BlogApiController {
     return ResponseEntity.ok()
         .body((articles));
   }
+  @GetMapping("/api/articles/{id}")
+  public ResponseEntity<ArticleResponse> findArticleById(@PathVariable Long id){
+      Article article = blogService.findById(id);
+
+      return ResponseEntity.ok()
+        .body(new ArticleResponse(article));
+  }
+
+  @PutMapping("/api/articles/{id}")
+    public ResponseEntity<Article> updateArticle(@PathVariable long id, @RequestBody UpdateArticleRequest req){
+    Article updateArticle = blogService.update(id, req);
+    return ResponseEntity.ok().body(updateArticle);
+  }
+
+//  @DeleteMapping("/api/articles/{id}")
+//    public ResponseEntity<Void> deleteArticle(@PathVariable Long id){
+//      Article delet
+//  }
 }
