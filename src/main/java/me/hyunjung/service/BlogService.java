@@ -36,4 +36,8 @@ public class BlogService {
     return article;
   }
 
+  @Transactional
+    public  void delete(long id) {
+       blogRepository.deleteById(id);
+    }
 }

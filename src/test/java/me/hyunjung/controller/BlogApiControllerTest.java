@@ -154,29 +154,29 @@ class BlogApiControllerTest {
         assertThat(article.getTitle()).isEqualTo(newTitle);
         assertThat(article.getContent()).isEqualTo(newContent);
     }
-//
-//  @DisplayName("deleteArticle: 블로그 글 삭제에 성공한다.")
-//  @Test
-//  public void deleteArticle() throws Exception {
-//    // given
-//    final String url = "/api/articles/{id}";
-//    final String title = "title";
-//    final String content = "content";
-//
-//    Article savedArticle = blogRepository.save(Article.builder()
-//        .title(title)
-//        .content(content)
-//        .build());
-//
-//    // when
-//    mockMvc.perform(delete(url, savedArticle.getId()))
-//        .andExpect(status().isOk());
-//
-//    // then
-//    List<Article> articles = blogRepository.findAll();
-//
-//    assertThat(articles).isEmpty();
-//  }
+
+  @DisplayName("deleteArticle: 블로그 글 삭제에 성공한다.")
+  @Test
+  public void deleteArticle() throws Exception {
+    // given
+    final String url = "/api/articles/{id}";
+    final String title = "title";
+    final String content = "content";
+
+    Article savedArticle = blogRepository.save(Article.builder()
+        .title(title)
+        .content(content)
+        .build());
+
+    // when
+    mockMvc.perform(delete(url, savedArticle.getId()))
+        .andExpect(status().isOk());
+
+    // then
+    List<Article> articles = blogRepository.findAll();
+
+    assertThat(articles).isEmpty();
+  }
 
 
 
